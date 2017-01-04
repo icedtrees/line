@@ -30,9 +30,10 @@ function renderSticker(index) {
 
 function onPusheenClick(pusheenLine) {
     // Set selected class on pusheen line icon
-    // this should be reversible but whatever
-    // TODO(davy): what does this line do? also only run this once
-    pusheenLine.className += " _5r8b";
+    var selectedClass = "_5r8b";
+    if (!pusheenLine.className.contains(selectedClass)) {
+        pusheenLine.className += " " + selectedClass;
+    }
 
     var tableContainer = document.getElementsByClassName("_5r8k")[0];
 
