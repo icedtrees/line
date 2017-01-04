@@ -81,7 +81,7 @@ function doPusheen() {
 
     // Create new pusheen icon
     var pusheenLine = document.createElement("a");
-    pusheenLine.className = "_58ra";
+    pusheenLine.className = "_5r8a";
     pusheenLine.onclick =  function() { onPusheenClick(pusheenLine); };
     pusheenParent.appendChild(pusheenLine);
 
