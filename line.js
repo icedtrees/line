@@ -68,11 +68,24 @@ function onPusheenClick(pusheenLine) {
     }
 }
 
-function doPusheen() {
+function doPusheen(override=false) {
     var pusheenParent = document.getElementsByClassName("_5r81")[0];
 
     // bonusPusheens attribute determines whether we have run this fn before
-    if (!pusheenParent || pusheenParent.bonusPusheens) {
+    if (!pusheenParent) {
+        return;
+    }
+    if (override) {
+        // Clear existing line pusheens
+        for (var i = pusheenParent.childNodes.length - 1; i >= 0; i--) {
+            var child = pusheenParent.childNodes[i];
+            // TODO(davy): better way of doing this lol
+            if (!child.getAttribute("aria-label")) {
+                pusheenParent.removeChild(child);
+            }
+        }
+    } else if (pusheenParent.bonusPusheens) {
+        // Pusheen already created, do nothing
         return;
     }
     pusheenParent.bonusPusheens = true;
@@ -98,3 +111,6 @@ document.body.addEventListener("DOMNodeInserted", function() {
     //console.log("insertion!");
     doPusheen();
 });
+
+// Main function - for when running from popup
+doPusheen(true);
