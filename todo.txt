@@ -1,0 +1,4 @@
+- check if stickers are animated on line
+- get custom video stickers and ideas from pusheen twitter and pusheen website
+- hook up mobile app? 
+- look for todos in code

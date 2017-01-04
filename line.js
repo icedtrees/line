@@ -35,6 +35,7 @@ function onPusheenClick(pusheenLine) {
         pusheenLine.className += " " + selectedClass;
     }
 
+    // TODO(davy): what if this doesn't exist? e.g. stickers haven't loaded yet
     var tableContainer = document.getElementsByClassName("_5r8k")[0];
 
     // Clear table
