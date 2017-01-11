@@ -2,3 +2,28 @@
 - get custom video stickers and ideas from pusheen twitter and pusheen website
 - hook up mobile app? 
 - look for todos in code
+- handle multiple chat windows correctly
+
+
+event attempts:
+- use messenger.com
+- try to use react testutils or enzyme or something to simulate event
+- try calling the react component's methods
+- try using native textinput event
+- try constructing an editor state and call the DraftModifier methods
+- try events for paste, text change, drop text, drop image
+- try fully copying TextEvent including prototype class
+- hijack onclick handler of regular stickers
+- try hijacking image upload. mercury message send?
+
+
+plan:
+- see if it's possible to simulate TextEvent
+- see if it's possible to simulate ClipboardEvent
+- investigate putting image in clipboard or dragging sticker to message window
+- fallback to putting url in clipboard
+    extras:
+    - add placeholder text or notify: should be "paste here and hit enter", or "copied to clipboard!"
+    - close sticker window
+    - make it work with messenger
+    - make it work with multiple chat windows on regular facebook

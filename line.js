@@ -10,6 +10,45 @@ function test() {
     }
 }
 
+function getReactNode(domNode) {
+    debugger
+    for (var key in domNode) {
+        if (key.startsWith("__react")) {
+            return domNode[key]._currentElement._owner._instance;
+        }
+    }
+    throw "React node not found";
+}
+
+function submitMessage() {
+    // TODO(davy): this doesn't work lol
+    var domNode = document.getElementsByClassName("_1d4_")[0];
+    var reactNode = getReactNode(domNode);
+    reactNode.props.inputKeyDown({'keyCode': 13, 'preventDefault': (() => null)});
+    console.log("done");
+}
+
+function sendMessage(message) {
+    // TODO(davy): this doesn't work lol
+    // TODO(davy): handle cases with existing text and not existing text
+    // TODO(davy): handle multiple chat windows
+    var input = document.querySelector("[data-text]");
+    // input.textContent = message;
+    submitMessage();
+}
+
+function copyClipboard(url) {
+    // TODO(davy)
+}
+
+function setPlaceholder() {
+    // TODO(davy)
+}
+
+function closeStickerWindow() {
+    // TODO(davy)
+}
+
 function renderSticker(index) {
     var prefix = "https://sdl-stickershop.line.naver.jp/products/0/0/1/1014241/android/stickers/6372";
     var suffix = ".png";
@@ -17,13 +56,25 @@ function renderSticker(index) {
     var sticker = document.createElement("div");
     sticker.className = "_5r8h";
 
+    /*
     var stickerImg = document.createElement("div");
     stickerImg.className = "_5r8i";
     stickerImg.setAttribute("role", "img");
     var imgStyle = "background-repeat: no-repeat; background-size: 64px 64px; cursor: pointer; height: 64px; width: 64px;";
     imgStyle += `background-image: url("${url}");`;
     stickerImg.setAttribute("style", imgStyle);
+    */
+    var stickerImg = document.createElement("img");
+    stickerImg.src = url;
+    stickerImg.style.width = "64px";
+    stickerImg.style.height = "64px";
     sticker.appendChild(stickerImg);
+    sticker.onclick = function() {
+        //sendMessage(url);
+        copyClipboard(url);
+        setPlaceholder();
+        closeStickerWindow();
+    }
 
     return sticker;
 }
@@ -31,9 +82,11 @@ function renderSticker(index) {
 function onPusheenClick(pusheenLine) {
     // Set selected class on pusheen line icon
     var selectedClass = "_5r8b";
-    if (!pusheenLine.className.contains(selectedClass)) {
+    if (!pusheenLine.className.includes(selectedClass)) {
         pusheenLine.className += " " + selectedClass;
     }
+    // TODO(davy): clear selected class on other child nodes
+    // TODO(davy): handle deselect - i.e. select of other child nodes
 
     // TODO(davy): what if this doesn't exist? e.g. stickers haven't loaded yet
     var tableContainer = document.getElementsByClassName("_5r8k")[0];
@@ -84,6 +137,7 @@ function doPusheen(override=false) {
                 pusheenParent.removeChild(child);
             }
         }
+        // TODO(davy): clear sticker window as well
     } else if (pusheenParent.bonusPusheens) {
         // Pusheen already created, do nothing
         return;
